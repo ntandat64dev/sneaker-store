@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Cài đặt hệ thống";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb">
+            <li class="breadcrumb-item"><a href=""><b>Cài đặt hệ thống</b></a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+    <div class="row system-settings" style="margin-bottom: 30px">
+        <div class="col-lg-4">
+            <div class="left text-left">
+                <span class="d-inline-block mb-3"><b>Hình ảnh hồ sơ</b></span>
+                <div class="img-container">
+                    <img src="~/Areas/Admin/Content/images/admin-avatar.png" alt="">
+                    <button><i class="bx bx-pencil"></i> Sửa</button>
+                </div>
+                <p class="text-center"><b>Admin</b></p>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="right pb-4">
+                <form>
+                    <label class="d-block" for="name">Tên <span>*</span></label>
+                    <input type="text" id="name">
+                    <h4 class="position-relative mt-3 mb-4">
+                        Đổi mật khẩu</h6>
+                        <label class="d-block mt-3" for="old">Mật khẩu cũ <span>*</span></label>
+                        <input type="text" id="old">
+                        <label class="d-block mt-3" for="new">Mật khẩu mới</label>
+                        <input type="text" id="new">
+                        <label class="d-block mt-3" for="confirm">Xác nhận mật khẩu mới</label>
+                        <input type="text" id="confirm">
+                        <button>Lưu thay đổi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <b>Copyright
+        <script>document.write(new Date().getFullYear())</script> - Bản quyền thuộc về Sneaker Store</b>
+    </div>
+</main>

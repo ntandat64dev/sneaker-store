@@ -1,0 +1,235 @@
+﻿@using Data.Entity;
+
+@{
+    ViewBag.Title = "Tin Tức - Sneaker Store";
+    Layout = "~/Views/Shared/Layout.cshtml";
+    var news = (News) ViewBag.News;
+}
+
+<!-- TODO: Populate news data -->
+
+<div class="breadcrumbs py-4">
+    <div class="container text-left">
+        <ul class="bread-list d-inline-block">
+            <li class="d-inline-block text-capitalize"><a href="/">Trang chủ<i class="ti-arrow-right mx-2"></i></a></li>
+            <li class="d-inline-block text-capitalize"><a href="">Tin tức</a></li>
+        </ul>
+    </div>
+</div>
+<section class="blog-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="blog-single-main mt-4 bg-white">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="image position-relative">
+                                <img src="/Content/Images/News/blog-img-950x460.jpg" alt="#" />
+                            </div>
+                            <div class="blog-detail">
+                                <h2 class="blog-title">TFG Mở Rộng Thương Hiệu Bằng Việc Mua Lại Street Fever</h2>
+                                <div class="blog-meta">
+                                    <span class="author">
+                                        <a href="#" class="pl-0"><i class="fa fa-user"></i>Bởi Admin</a><a href="#">
+                                            <i class="fa fa-calendar"></i>Ngày 15/08/2024
+                                        </a><a href="#"
+                                               class="pr-0 border-0"><i class="fa fa-comments"></i>Bình luận (3)</a>
+                                    </span>
+                                </div>
+                                <div class="content">
+                                    <p>
+                                        Trong một thỏa thuận sẽ cho phép TFG mở rộng dấu chân của Sneaker Factory hơn nữa,
+                                        nhà bán lẻ này đã đạt được thỏa thuận mua Street Fever, một nhà bán lẻ độc lập về giày dép và quần áo.
+                                    </p>
+                                    <blockquote>
+                                        <i class="fa fa-quote-left"></i> Khi hoàn tất giao dịch, 
+                                        114 cửa hàng Street Fever và các hợp đồng thuê của họ 
+                                        sẽ được TFG tiếp quản, với khoảng 90 cửa hàng trong số 
+                                        này được dự định sẽ được đổi thương hiệu thành các cửa 
+                                        hàng Sneaker Factory. Số còn lại nằm ở những nơi mà các 
+                                        cửa hàng Sneaker Factory đã ở gần đó sẽ được tiếp quản 
+                                        bởi các thương hiệu khác của TFG.
+                                    </blockquote>
+                                    <p>
+                                        "Khách hàng trung thành của Street Fever có thể yên tâm 
+                                        rằng họ sẽ gặp lại những gương mặt quen thuộc tại các 
+                                        cửa hàng Sneaker Factory đã được đổi thương hiệu vì nhân 
+                                        viên sẽ được giữ lại. TFG sẽ mang đến mức giá cạnh tranh 
+                                        hơn, những thương hiệu mới hấp dẫn, phụ kiện và trang 
+                                        phục mới, cùng với việc truy cập vào tín dụng TFG và 
+                                        chương trình phần thưởng hàng đầu trong ngành của chúng 
+                                        tôi," ông Nizamudien Parker, người đứng đầu kinh doanh 
+                                        của Sneaker Factory cho biết.
+                                    </p>
+                                    <p class="m-0">
+                                        Việc thực hiện thỏa thuận phụ thuộc vào việc hoàn thành 
+                                        các điều kiện tiên quyết thông thường cho một giao dịch 
+                                        như thế này, bao gồm sự chấp thuận của các cơ quan cạnh 
+                                        tranh có liên quan.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="share-social">
+                                <div class="content-tags position-relative mt-4">
+                                    <h4>Tags:</h4>
+                                    <ul class="tag-inner">
+                                        <li><a href="#">sneaker</a></li>
+                                        <li><a href="#">blog</a></li>
+                                        <li><a href="#">news</a></li>
+                                        <li class="mr-0 mb-0"><a href="#">factory</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="comments mt-4">
+                                <h3 class="comment-title">Bình luận (3)</h3>
+                                <div class="single-comment">
+                                    <img src="/Content/Images/Avatars/user_02_80x80.jpg" alt="#" />
+                                    <div class="content">
+                                        <h4>Nguyễn Thành Trung <span>Vào lúc 8:59 ngày 15/08/2024</span></h4>
+                                        <p>
+                                            Thật tuyệt vời khi thấy TFG tiếp tục mở rộng và tạo 
+                                            ra nhiều cơ hội việc làm hơn cho nhân viên của Street 
+                                            Fever. Điều này không chỉ bảo vệ công việc mà còn 
+                                            mang lại nhiều lựa chọn sản phẩm mới cho khách hàng!
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="single-comment">
+                                    <img src="/Content/Images/Avatars/user_01_80x80.jpg" alt="#" />
+                                    <div class="content">
+                                        <h4>Lê Thị Trâm Anh <span>Vào lúc 9:12 ngày 15/08/2024</span></h4>
+                                        <p>
+                                            Mong chờ các cửa hàng Sneaker Factory mới với giá 
+                                            cả cạnh tranh và các thương hiệu hấp dẫn. TFG chắc 
+                                            chắn sẽ làm hài lòng nhiều khách hàng trung thành.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="single-comment">
+                                    <img src="/Content/Images/Avatars/user_03_80x80.png" alt="#" />
+                                    <div class="content">
+                                        <h4>Phan Tâm Như <span>Vào lúc 9:13 ngày 15/08/2024</span></h4>
+                                        <p>
+                                            Thật đáng khen ngợi khi TFG cam kết bảo vệ việc
+                                            làm trong điều kiện kinh doanh khó khăn. Đây là 
+                                            một bước đi chiến lược rất tốt.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="reply">
+                                <div class="reply-head">
+                                    <h2 class="reply-title">Để lại bình luận</h2>
+                                    <form class="form" action="#">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="form-group mb-4">
+                                                    <label>Họ và tên<span>*</span></label>
+                                                    <input type="text" name="name" placeholder="" required="required" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="form-group mb-4">
+                                                    <label>Email<span>*</span></label>
+                                                    <input type="email" name="email" placeholder="" required="required" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group mb-4">
+                                                    <label>Bình luận<span>*</span></label>
+                                                    <textarea name="message" placeholder=""></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group button text-left mb-0">
+                                                    <button type="submit" class="btn">
+                                                        Đăng bình luận
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="main-sidebar mt-4">
+                    <div class="single-widget search mb-5 position-relative">
+                        <div class="form">
+                            <input type="email" placeholder="Tìm kiếm..." />
+                            <a class="button" href="#"><i class="fa fa-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="single-widget category mb-5">
+                        <h3 class="title">Danh mục tin tức</h3>
+                        <ul class="category-list">
+                            <li><a href="#">Air Force 1</a></li>
+                            <li><a href="#">Người Nổi Tiếng</a></li>
+                            <li><a href="#">Tái Chế</a></li>
+                            <li><a href="#">Cho Giáo Dục</a></li>
+                            <li><a href="#">Doanh Nghiệp</a></li>
+                        </ul>
+                    </div>
+                    <div class="single-widget recent-post mb-5">
+                        <h3 class="title">Bài viết gần đây</h3>
+                        <div class="single-post">
+                            <div class="image position-relative">
+                                <img src="/Content/Images/News/100x100/tin_01.jpg" alt="#" />
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">Top 10 Thương Hiệu Có Doanh Thu Cao Nhất</a></h5>
+                                <ul class="comment">
+                                    <li><i class="fa fa-calendar" aria-hidden="true"></i>11/08/2024</li>
+                                    <li class="mr-0"><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="single-post">
+                            <div class="image position-relative">
+                                <img src="/Content/Images/News/100x100/tin_02.jpg" alt="#" />
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">VF Group Bán Supreme Với Giá 1,5 Tỷ USD</a></h5>
+                                <ul class="comment">
+                                    <li><i class="fa fa-calendar" aria-hidden="true"></i>05/08/2024</li>
+                                    <li class="mr-0"><i class="fa fa-commenting-o" aria-hidden="true"></i>59</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="single-post pb-0 border-0">
+                            <div class="image position-relative">
+                                <img src="/Content/Images/News/100x100/tin_03.png" alt="#" />
+                            </div>
+                            <div class="content">
+                                <h5><a href="#">Mọi Thứ Đều Tươi Sáng Với Adidas Vào Năm 2024</a></h5>
+                                <ul class="comment">
+                                    <li><i class="fa fa-calendar" aria-hidden="true"></i>09/08/2024</li>
+                                    <li class="mr-0"><i class="fa fa-commenting-o" aria-hidden="true"></i>44</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single-widget side-tags">
+                        <h3 class="title">Từ khóa</h3>
+                        <ul class="tag">
+                            <li><a href="#">doanh nghiệp</a></li>
+                            <li><a href="#">wordpress</a></li>
+                            <li><a href="#">html</a></li>
+                            <li><a href="#">đa nền tảng</a></li>
+                            <li><a href="#">giáo dục</a></li>
+                            <li><a href="#">kinh doanh</a></li>
+                            <li><a href="#">an toàn</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

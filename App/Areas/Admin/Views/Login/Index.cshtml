@@ -1,0 +1,70 @@
+﻿@model  App.Areas.Admin.Models.LoginModel
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập Quản Trị</title>
+    <link href="~/Areas/Admin/Content/css/login.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <section class="container-login d-flex justify-content-center align-items-center p-3">
+        <div class="wrap-login">
+            <div class="login-pic">
+                <img src="~/Areas/Admin/Content/Images/team.jpg" alt="">
+            </div>
+            <div class="login-form">
+                <span class="login-form-title text-center d-block mb-4">ĐĂNG NHẬP HỆ THỐNG</span>
+                @using (Html.BeginForm("Login", "Login"))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="wrap-input">
+                        @Html.TextBoxFor(model => model.Username, new
+                        {
+                            @class = "input",
+                            @autofocus = "autofocus",
+                            @id = "field-username",
+                            @placeholder = "Tên tài khoản"
+                        })
+                        <span class="symbol-input d-flex align-items-center pl-4"><i class='bx bx-user'></i></span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger validator" })
+                    <div class="wrap-input mt-3">
+                        @Html.PasswordFor(model => model.Password, new
+                        {
+                            @class = "input",
+                            @id = "field-password",
+                            @placeholder = "Mật khẩu",
+                            @autocomplete = "off",
+                            @type = "password"
+                        })
+                        <span toggle="#field-password" class="bx bx-hide field-icon click-eye"></span>
+                        <span class="symbol-input d-flex align-items-center pl-4"><i class="bx bx-key"></i></span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger validator" })
+                    <div class="text-center mt-2">
+                        @Html.ValidationMessage("", new { @class = "text-danger validator" })
+                    </div>
+                    <div class="form-btn d-flex flex-wrap justify-content-center w-100 pt-4">
+                        <input type="submit" value="Đăng nhập" id="btn-login" />
+                    </div>
+                }
+            </div>
+            <div class="text-center pt-5 w-100">
+                <b>
+                    Bản quyền thuộc về Sneaker Store <i class="bx bx-copyright"></i>
+                    <script>document.write(new Date().getFullYear())</script>
+                </b>
+            </div>
+        </div>
+    </section>
+
+    <script src="~/Areas/Admin/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Areas/Admin/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Areas/Admin/Content/js/login.js"></script>
+</body>
+</html>

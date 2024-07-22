@@ -1,0 +1,304 @@
+﻿@using Data.Entity;
+@using Data.Service;
+@{
+    ViewBag.Title = "Quản lý sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+
+    var products = (List<Product>) ViewBag.Products;
+}
+
+<!-- TODO: Order managers -->
+<!-- TODO: Search (user) -->
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item active"><a href=""><b>Quản lý sản phẩm</b></a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row element-button">
+                        <div class="col-sm-2">
+                            <a class="btn btn-add btn-sm" href="@Url.Action("AddProduct")" title="Thêm"><i class="fas fa-plus"></i> Tạo mới sản phẩm</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                        </div>
+                    </div>
+                    <!-- Search -->
+                    <div class="search-bar d-flex justify-content-between my-3">
+                        <div class="d-flex align-items-center">
+                            <span class="status">Hiện <span class="quantity">10</span> danh mục</span>
+                        </div>
+                        <div class="search-wrap">
+                            <label class="font-weight-bold m-0" for="search">Tìm kiếm: </label>
+                            <input type="text" placeholder="" id="search">
+                            <label for="by" class="font-weight-bold m-0 ml-3">Loại sản phẩm: </label>
+                            <select id="by">
+                                <option>Giày</option>
+                                <option>Dép</option>
+                                <option>Phụ kiện</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                            <tr>
+                                <th width="10"><input type="checkbox" id="all"></th>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Tình trạng</th>
+                                <th>Giá tiền</th>
+                                <th>Danh mục</th>
+                                <th>Chức năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var product in products)
+                            {
+                                <tr update-hine="id=@product.Id_product,na=@product.Name_product,qu=@product.Quantity_product,lp=@product.Listed_price,cp=@product.Current_price,st=@product.Id_status,tp=@product.Id_type">
+
+                                    <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                    <td>@product.Id_product</td>
+                                    <td>@product.Name_product</td>
+                                    <td>
+                                        <img src="@product.Url_img_product" alt="">
+                                    </td>
+                                    <td>@product.Quantity_product</td>
+                                    <td>
+                                        @{
+                                            var badge = "";
+                                            var status = "";
+                                            switch (product.Id_status)
+                                            {
+                                                case 1:
+                                                    badge = "bg-warning";
+                                                    status = "Mới";
+                                                    break;
+                                                case 2:
+                                                    badge = "bg-danger";
+                                                    status = "Hết hàng";
+                                                    break;
+                                                case 3:
+                                                    badge = "bg-success";
+                                                    status = "Còn hàng";
+                                                    break;
+                                                case 4:
+                                                    badge = "bg-info";
+                                                    status = "Giảm giá";
+                                                    break;
+                                                default:
+                                                    badge = "bg-success";
+                                                    status = "Còn hàng";
+                                                    break;
+                                            }
+                                        }
+                                        <span class="badge @badge">@status</span>
+                                    </td>
+                                    <td>@string.Format("{0:0,0}đ", product.Current_price)</td>
+                                    <td>@ProductService.FindTypeNameById(product.Id_type)</td>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i></button>
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"><i class="fas fa-edit"></i></button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <b>
+            Copyright
+            <script>document.write(new Date().getFullYear())</script> - Bản quyền thuộc về Sneaker Store
+        </b>
+    </div>
+</main>
+
+<div class="modal fade" id="modal-up" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <span class="thong-tin-thanh-toan">
+                            <h5>Chỉnh sửa thông tin sản phẩm cơ bản</h5>
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Tên sản phẩm</label>
+                        <input id="na" class="form-control" type="text" required value="Bàn ăn gỗ Theresa">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Số lượng</label>
+                        <input id="qu" class="form-control" type="number" required value="20">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Giá niêm yết</label>
+                        <input id="lp" class="form-control" type="number" value="5.600.000">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label class="control-label">Giá bán thực tế</label>
+                        <input id="cp" class="form-control" type="number" value="4.600.000">
+                    </div>
+                    <div class="form-group col-md-6 ">
+                        <label for="st" class="control-label">Tình trạng sản phẩm</label>
+                        <select class="form-control" id="st">
+                            <option value="1">Mới</option>
+                            <option value="2">Hết hàng</option>
+                            <option value="3">Còn hàng</option>
+                            <option value="4">Giảm giá</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="tp" class="control-label">Loại sản phẩm</label>
+                        <select class="form-control" id="tp">
+                            <option value="1">Giày Nike</option>
+                            <option value="2">Giày Adidas</option>
+                            <option value="3">Giày Jordan</option>
+                            <option value="4">Giày Yeezy</option>
+                            <option value="5">Giày New Balance</option>
+                            <option value="6">Giày MLB</option>
+                            <option value="7">Giày Alexander McQueen</option>
+                            <option value="8">Giày Balenciaga</option>
+                            <option value="9">Giày Khác</option>
+                            <option value="10">Dép Adidas</option>
+                            <option value="11">Dép Nike</option>
+                            <option value="12">Dép Crocs</option>
+                            <option value="13">Dép Puma</option>
+                            <option value="14">Phụ kiện Adidas</option>
+                            <option value="15">Phụ kiện Champion</option>
+                            <option value="16">Phụ kiện FRONT</option>
+                            <option value="17">Phụ kiện Nike</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-end mt-1">
+                    <button class="btn btn-save mr-3" type="button">Lưu lại</button>
+                    <button class="btn btn-cancel" data-dismiss="modal">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    <script>
+        // Delete product
+        $(function () {
+            $('.btn.trash').click(function () {
+                swal({
+                    icon: 'warning',
+                    title: 'Cảnh báo',
+                    text: 'Bạn có chắc chắn là muốn xóa sản phẩm này?',
+                    buttons: ['Hủy bỏ', 'Đồng ý'],
+                })
+                    .then((agree) => {
+                        if (agree) {
+                            const id = $(this).closest('tr').children('td:eq(1)').text();
+
+                            fetch(`http://localhost:51665/Admin/ProductsManager/DeleteProduct/${id}`, {
+                                method: 'POST'
+                            }).then(res => {
+                                if (res.status === 200) {
+                                    $(this).closest('tr').remove();
+                                    swal({
+                                        icon: 'success',
+                                        title: 'Success',
+                                        text: 'Đã xóa thành công',
+                                        timer: 1500,
+                                        buttons: false
+                                    });
+                                } else {
+                                    swal({
+                                        icon: 'error',
+                                        text: 'Xóa sản phẩm không thành công',
+                                        timer: 2000,
+                                        buttons: false
+                                    });
+                                }
+                            })
+                        }
+                    });
+            });
+        });
+
+        $('.modal-footer .btn-save').click(function () {
+            const id = $('.modal').attr('id-product');
+            fetch(`http://localhost:51665/Admin/ProductsManager/UpdateProduct/${id}?` + new URLSearchParams({
+                Id_product: id,
+                Name_product: $('#na').val(),
+                Quantity_product: $('#qu').val(),
+                Listed_price: $('#lp').val(),
+                Current_price: $('#cp').val(),
+                Id_status: $('#st').val(),
+                Id_type: $('#tp').val()
+            }).toString(), {
+                method: 'POST'
+            }).then(res => {
+                if (res.status === 200) {
+                    swal({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Cập nhật sản phẩm thành công',
+                        timer: 1000,
+                        buttons: false
+                    }).then(() => {
+                        location.reload();
+                    })
+                } else {
+                    swal({
+                        icon: 'error',
+                        text: 'Cập nhật sản phẩm không thành công',
+                        timer: 2000,
+                        buttons: false
+                    });
+                }
+            });
+            $('#modal-up').modal('hide');
+        });
+
+        // Show update product modal
+        $('button.edit').click(function () {
+            const hints = $(this).closest('tr').attr('update-hine').split(',');
+            const id = hints[0].split('=')[1];
+            const name = hints[1].split('=')[1];
+            const quantity = hints[2].split('=')[1];
+            const listedPrice = hints[3].split('=')[1];
+            const currentPrice = hints[4].split('=')[1];
+            const status = hints[5].split('=')[1];
+            const type = hints[6].split('=')[1];
+
+            $('.modal').attr('id-product', id);
+            $('#na').val(name);
+            $('#qu').val(quantity);
+            $('#lp').val(listedPrice);
+            $('#cp').val(currentPrice);
+            $('#st').val(status);
+            $('#tp').val(type);
+
+            $('#modal-up').modal('show');
+        });
+    </script>
+}

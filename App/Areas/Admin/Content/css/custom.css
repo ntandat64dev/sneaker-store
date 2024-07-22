@@ -1,0 +1,49 @@
+.validator {
+    font-size: 13px;
+}
+
+.upload-image {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-right: 8px;
+    object-fit: cover;
+}
+
+.button-upload-image {
+    margin-bottom: 0 !important;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f5f5f8;
+    position: relative;
+    cursor: pointer;
+}
+
+.button-upload-image:hover {
+    background-color: #f2f2f4;
+    transition: ease all 0.3s;
+    border: 1px solid #d8d8d8;
+}
+
+.button-upload-image-icon {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    background-color: #000000a5;
+}
+
+.button-upload-image-icon .fa-plus {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}

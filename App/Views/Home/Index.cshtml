@@ -1,0 +1,323 @@
+﻿@using System.Collections.Generic;
+@using Data.Entity;
+@{
+    ViewBag.Title = "Trang chủ - Sneaker Store";
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+    var newestProducts = ViewBag.Newest as List<Product>;
+    var flagshipGiayProducts = ViewBag.FlagshipGiayProducts as List<Product>;
+    var flagshipDepProducts = ViewBag.FlagshipDepProducts as List<Product>;
+    var flagshipPhuKienProducts = ViewBag.FlagshipPhuKienProducts as List<Product>;
+    var discountProducts = ViewBag.DiscountProducts as List<Product>;
+    var bestSellingProducts = ViewBag.BestSellingProducts as List<Product>;
+    var mostViewsProducts = ViewBag.MostViewsProducts as List<Product>;
+    var discountProduct = ViewBag.DiscountProduct as Product;
+}
+
+<section class="hero-slider">
+    <div class="single-slider" />
+</section>
+
+<section class="newest-products">
+    <div class="container">
+        <div class="section-title">
+            <h2>Sản phẩm mới nhất</h2>
+        </div>
+        <div class="owl-carousel newest-slider">
+            @{
+                if (newestProducts != null)
+                {
+                    foreach (var product in newestProducts)
+                    {
+                        <div class="single-product mt-0 mb-0 mr-3 ml-3">
+                            <div class="product-img">
+                                <a href="@Url.Action("ProductDetails", "Products", new { id = product.Id_product })">
+                                    <img class="default-img" src="@product.Url_img_product" />
+                                    @{
+                                        var spanClass = "hot";
+                                        var name = "Hot";
+                                        if (product.Id_status == 1)
+                                        {
+                                            spanClass = "new";
+                                            name = "New";
+                                        }
+                                        else if (product.Listed_price - product.Current_price > 0)
+                                        {
+                                            var rate = (product.Listed_price - product.Current_price) * 100 / product.Listed_price;
+                                            spanClass = "price-dec";
+                                            name = rate + "% Off";
+                                        }
+                                        else
+                                        {
+                                            spanClass = "hot";
+                                            name = "Hot";
+                                        }
+                                    }
+                                    @if (product.Star > 4)
+                                    {
+                                        <span class="@spanClass">@name</span>
+                                    }
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <a href="@Url.Action("ProductDetails", "Products", new { id = product.Id_product })">@product.Name_product</a>
+                                <div class="rating">
+                                    @for (int j = 0; j < product.Star; j++)
+                                    {
+                                        <i class="yellow fa fa-star"></i>
+                                    }
+                                    @for (int j = product.Star; j < 5; j++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                </div>
+                                <div class="product-price">
+                                    @if (product.Listed_price != product.Current_price)
+                                    {
+                                        <span class="old">@string.Format("{0:0,0đ}", product.Listed_price) </span>
+                                        <br />
+                                        <span>@string.Format("{0:0,0đ}", product.Current_price)</span>
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        <span>@string.Format("{0:0,0đ}", product.Current_price)</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<div class="product-area">
+    <div class="container">
+        <div class="section-title">
+            <h2>Sản phẩm tiêu biểu</h2>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="product-info">
+                    <div class="nav-main">
+                        <!-- Tab Nav -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item d-inline-block">
+                                <a class="nav-link active" data-toggle="tab" href="#giay" role="tab">Giày</a>
+                            </li>
+                            <li class="nav-item d-inline-block">
+                                <a class="nav-link" data-toggle="tab" href="#dep" role="tab">Dép</a>
+                            </li>
+                            <li class="nav-item d-inline-block">
+                                <a class="nav-link" data-toggle="tab" href="#phu-kien" role="tab">Phụ Kiện</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-content">
+                        @{
+                            var ids = new string[] { "giay", "dep", "phu-kien" };
+                            var flagships = new List<Product>[] { flagshipGiayProducts, flagshipDepProducts, flagshipPhuKienProducts };
+                            for (int i = 0; i < 3; i++)
+                            {
+                                <div class="tab-pane fade @(i == 0 ? "show active" : "")" id="@ids[i]" role="tabpanel">
+                                    <div class="tab-single">
+                                        <div class="row">
+                                            @{
+                                                var products = flagships[i];
+                                                if (products != null)
+                                                {
+                                                    foreach (var product in products)
+                                                    {
+                                                        <div class="col-xl-3 col-lg-4 col-md-4 col-12">
+                                                            <div class="single-product">
+                                                                <div class="product-img">
+                                                                    <a href="@Url.Action("ProductDetails", "Products", new { id = product.Id_product })">
+                                                                        <img class="default-img" src="@product.Url_img_product" />
+                                                                        @{
+                                                                            var spanClass = "hot";
+                                                                            var name = "Hot";
+                                                                            if (product.Id_status == 1)
+                                                                            {
+                                                                                spanClass = "new";
+                                                                                name = "New";
+                                                                            }
+                                                                            else if (product.Listed_price - product.Current_price > 0)
+                                                                            {
+                                                                                var rate = (product.Listed_price - product.Current_price) * 100 / product.Listed_price;
+                                                                                spanClass = "price-dec";
+                                                                                name = rate + "% Off";
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                spanClass = "hot";
+                                                                                name = "Hot";
+                                                                            }
+                                                                        }
+                                                                        @if (product.Star > 4)
+                                                                        {
+                                                                            <span class="@spanClass">@name</span>
+                                                                        }
+                                                                    </a>
+                                                                </div>
+                                                                <div class="product-content">
+                                                                    <a href="@Url.Action("ProductDetails", "Products", new { id = product.Id_product })">@product.Name_product</a>
+                                                                    <div class="rating">
+                                                                        @for (int j = 0; j < product.Star; j++)
+                                                                        {
+                                                                            <i class="yellow fa fa-star"></i>
+                                                                        }
+                                                                        @for (int j = product.Star; j < 5; j++)
+                                                                        {
+                                                                            <i class="fa fa-star"></i>
+                                                                        }
+                                                                    </div>
+                                                                    <div class="product-price">
+                                                                        @if (product.Listed_price != product.Current_price)
+                                                                        {
+                                                                            <span class="old">@string.Format("{0:0,0đ}", product.Listed_price)  </span>
+                                                                            <br />
+                                                                            <span>@string.Format("{0:0,0đ}", product.Current_price)</span>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <br />
+                                                                            <span>@string.Format("{0:0,0đ}", product.Current_price)</span>
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="shop-home-list">
+    <div class="container">
+        <div class="row">
+            @{
+                var titles = new string[] { "Giảm giá", "Bán chạy", "Xem nhiều" };
+                var productList = new List<Product>[] { discountProducts, bestSellingProducts, mostViewsProducts };
+                for (int i = 0; i < 3; i++)
+                {
+                    <div class="col-lg-4 col-md-6 col-12">
+                        <div class="shop-list-title">
+                            <h1>@titles[i]</h1>
+                        </div>
+                        @{
+                            var products = productList[i];
+                            if (products != null)
+                            {
+                                foreach (var product in products)
+                                {
+                                    <div class="single-list">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="list-image">
+                                                    <a href="@Url.Action("ProductDetails", "Products", new { id = product.Id_product })">
+                                                        <img src="@product.Url_img_product" />
+                                                    </a>
+                                                    <a style="cursor:pointer" onclick="addItem(@product.Id_product);window.location.reload()" class="buy"><i class="fa fa-shopping-bag"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <div class="content pt-5">
+                                                    <a class="pname" href="@Url.Action("ProductDetails", "Products", new { id = product.Id_product })">@product.Name_product</a>
+                                                    <p class="price">@string.Format("{0:0,0đ}", product.Current_price)</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<section class="countdown">
+    <div class="container-fluid p-0">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="image">
+                    <img class="default-img" src="@discountProduct.Url_img_product" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="content">
+                    <div class="heading-block">
+                        <p class="small-title">Giảm giá trong ngày</p>
+                        <h3 class="title">@discountProduct.Name_product</h3>
+                        <p>
+                            @discountProduct.Desc_product
+                        </p>
+                        <h1 class="price">@string.Format("{0:0,0đ}", discountProduct.Current_price) <s>@string.Format("{0:0,0đ}", discountProduct.Listed_price)</s></h1>
+                        <div class="clearfix" data-countdown="2024/08/15"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="shop-blog">
+    <div class="container">
+        <div class="section-title">
+            <h2>Tin mới nhất</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="shop-single-blog">
+                    <a href="@Url.Action("Index", "News")">
+                        <img src="@Url.Content("/Content/Images/News/370x300/news-1.jpg")" />
+                    </a>
+                    <div class="content p-4">
+                        <p class="date">Thứ Năm, ngày 15/08/2024</p>
+                        <a href="@Url.Action("Index", "News")" class="title">Nike Air Max 90 gây ấn tượng với màu xám và đỏ...</a>
+                        <a href="@Url.Action("Index", "News")" class="more-btn">Tiếp tục đọc</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="shop-single-blog">
+                    <a href="@Url.Action("Index", "News")">
+                        <img src="@Url.Content("/Content/Images/News/370x300/news-2.png")" />
+                    </a>
+                    <div class="content p-4">
+                        <p class="date">Thứ Tư, ngày 14/08/2024</p>
+                        <a href="@Url.Action("Index", "News")" class="title">Tận hưởng sắc màu mùa hè cùng BST Slide-On VR3CUSH...</a>
+                        <a href="@Url.Action("Index", "News")" class="more-btn">Tiếp tục đọc</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-12">
+                <div class="shop-single-blog">
+                    <a href="@Url.Action("Index", "News")">
+                        <img src="@Url.Content("/Content/Images/News/370x300/news-3.png" +
+                                 "")" />
+                    </a>
+                    <div class="content p-4">
+                        <p class="date">Thứ Hai, ngày 12/08/2024</p>
+                        <a href="@Url.Action("Index", "News")" class="title">Nét đẹp của sự giao thoa phong cách cổ điển và đương đại...</a>
+                        <a href="@Url.Action("Index", "News")" class="more-btn">Tiếp tục đọc</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

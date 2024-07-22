@@ -1,0 +1,204 @@
+﻿@{
+    ViewBag.Title = "Chi Tiết Sản Phẩm - Sneaker Store";
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+    var product = ViewBag.Product as Data.Entity.Product;
+    var newestProducts = ViewBag.Newest as List<Data.Entity.Product>;
+}
+
+<div class="breadcrumbs py-4">
+    <div class="container text-left">
+        <ul class="bread-list d-inline-block">
+            <li class="d-inline-block text-capitalize"><a href="/">Trang chủ<i class="ti-arrow-right mx-2"></i></a></li>
+            <li class="d-inline-block text-capitalize"><a href="">Chi tiết sản phẩm</a></li>
+        </ul>
+    </div>
+</div>
+
+<section class="product-detail">
+    <div class="container">
+        <div class="row no-gutters">
+            <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-slider-active">
+                    <div class="single-slider zoom">
+                        <img class="custom-image-product" src="@product.Url_img_product" />
+                    </div>
+                    <div class="single-slider zoom">
+                        <img class="custom-image-product" src="@product.Url_img_product" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                <div class="product-content p-5">
+                    <h2>@product.Name_product</h2>
+                    <div class="product-rating d-flex">
+                        <div class="rating">
+                            @for (int i = 0; i < product.Star; i++)
+                            {
+                                <i class="yellow fa fa-star"></i>
+                            }
+                            @for (int i = product.Star; i < 5; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                        </div>
+                        <a href="#0"> (33 Đánh giá)</a>
+                        <a href="#0"> 721 Lượt thích</a>
+                    </div>
+                    @if (product.Listed_price != product.Current_price)
+                    {
+                        <h3>
+                            <span>@string.Format("{0:0,0đ}", product.Listed_price)</span>
+                            @string.Format("{0:0,0đ}", product.Current_price)
+                        </h3>
+                    }
+                    else
+                    {
+                        <h3>
+                            @string.Format("{0:0,0đ}", product.Current_price)
+                        </h3>
+                    }
+                    <div class="product-peragraph">
+                        <p>@product.Desc_product</p>
+                    </div>
+                    <div class="sizes-container" style="margin-bottom: 32px">
+                        <div class="mb-1 d-flex justify-content-between">
+                            <div class="size-title">Kích cỡ</div>
+                            <div class="size-guide">Hướng dẫn chọn kích cỡ <i class="fa fa-external-link"></i></div>
+                        </div>
+                        <div>
+                            @for (int i = 36; i < 46; i++)
+                            {
+                                <div class="size @(i == 36 ? "size-select" : "")">@i</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="quantity d-inline-block mr-3">
+                        <div class="input-group">
+                            <div class="button minus">
+                                <button type="button" class="btn btn-primary btn-number" disabled="disabled" data-type="minus" data-field="quant_@product.Id_product">
+                                    <i class="ti-minus"></i>
+                                </button>
+                            </div>
+                            <input id="input-quant" type="text" name="quant_@product.Id_product" class="input-number" data-min="0" data-max="@product.Quantity_product" value="1" />
+                            <div class="button plus">
+                                <button type="button" class="btn btn-primary btn-number" data-type="plus" data-field="quant_@product.Id_product">
+                                    <i class="ti-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-to-cart d-inline-block">
+                        <a style="cursor:pointer" onclick="addItems(@product.Id_product)" class="btn">Thêm vào giỏ hàng</a>
+                    </div>
+                    <div class="product-stock">
+                        <span>@product.Quantity_product sản phẩm có sẵn</span>
+                    </div>
+                    <div class="default-social mt-3">
+                        <h4 class="share-now">Chia sẻ:</h4>
+                        <ul class="d-inline-block">
+                            <li class="d-inline-block mr-3"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="d-inline-block mr-3"><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="d-inline-block mr-3"><a class="youtube" href="#"><i class="fa fa-pinterest-p"></i></a></li>
+                            <li class="d-inline-block"><a class="dribbble" href="#"><i class="fa fa-google-plus"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="newest-products" style="margin-bottom: 80px">
+    <div class="container">
+        <div class="section-title">
+            <h2>Sản phẩm liên quan</h2>
+        </div>
+        <div class="owl-carousel newest-slider">
+            @{
+                if (newestProducts != null)
+                {
+                    foreach (var nproduct in newestProducts)
+                    {
+                        <div class="single-product mt-0 mb-0 mr-3 ml-3">
+                            <div class="product-img">
+                                <a href="@Url.Action("ProductDetails", "Products", new { id = nproduct.Id_product })">
+                                    <img class="default-img" src="@nproduct.Url_img_product" />
+                                    @{
+                                        var spanClass = "hot";
+                                        var name = "Hot";
+                                        if (nproduct.Id_status == 1)
+                                        {
+                                            spanClass = "new";
+                                            name = "New";
+                                        }
+                                        else if (nproduct.Listed_price - nproduct.Current_price > 0)
+                                        {
+                                            var rate = (nproduct.Listed_price - nproduct.Current_price) * 100 / nproduct.Listed_price;
+                                            spanClass = "price-dec";
+                                            name = rate + "% Off";
+                                        }
+                                        else
+                                        {
+                                            spanClass = "hot";
+                                            name = "Hot";
+                                        }
+                                    }
+                                    @if (nproduct.Star > 4)
+                                    {
+                                        <span class="@spanClass">@name</span>
+                                    }
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <a href="@Url.Action("ProductDetails", "Products", new { id = nproduct.Id_product })">@nproduct.Name_product</a>
+                                <div class="rating">
+                                    @for (int j = 0; j < nproduct.Star; j++)
+                                    {
+                                        <i class="yellow fa fa-star"></i>
+                                    }
+                                    @for (int j = nproduct.Star; j < 5; j++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                </div>
+                                <div class="product-price">
+                                    @if (nproduct.Listed_price != nproduct.Current_price)
+                                    {
+                                        <span class="old">@string.Format("{0:0,0đ}", nproduct.Listed_price) </span>
+                                        <br />
+                                        <span>@string.Format("{0:0,0đ}", nproduct.Current_price)</span>
+                                    }
+                                    else
+                                    {
+                                        <br />
+                                        <span>@string.Format("{0:0,0đ}", nproduct.Current_price)</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</section>
+
+@section script {
+    <script>
+        $('.size').click(function () {
+            $('.size').removeClass('size-select');
+            $(this).addClass('size-select');
+        });
+
+        function addItems(idProduct) {
+            if (@product.Quantity_product <= 0) return;
+
+            const quantity = document.getElementById("input-quant").value;
+            $.post(`/Cart/AddItems?idProduct=${idProduct}&quantity=${quantity}`)
+                .done(function () {
+                    location.reload();
+                })
+        }
+    </script>
+}

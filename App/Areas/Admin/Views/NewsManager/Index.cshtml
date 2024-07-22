@@ -1,0 +1,71 @@
+﻿@model App.Areas.Admin.Models.AddNewsModel
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+}
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item active"><a href=""><b>Quản lý bài viết</b></a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+    <div class="tile">
+        <h4 class="tile-title">Thêm bài viết</h4>
+        <div class="tile-body">
+            @using (Html.BeginForm("AddNews", "NewsManager"))
+            {
+                @Html.AntiForgeryToken()
+                // TODO: Add upload big image.
+                <div class="form-group">
+                    <label class="control-label">Tiêu đề bài viết</label>
+                    @Html.TextAreaFor(model => model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger validator" })
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Nội dung bài viết</label>
+                    @Html.TextAreaFor(model => model.Content, new { @class = "form-control", @id = "content-new" })
+                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger validator" })
+                </div>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-save mr-2" type="submit">Lưu lại</button>
+                    <button type="button" class="btn btn-cancel">Hủy bỏ</button>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="text-center">
+        <b>
+            Copyright
+            <script>document.write(new Date().getFullYear())</script> - Bản quyền thuộc về Sneaker Store
+        </b>
+    </div>
+</main>
+
+@section script {
+    <script>
+        CKEDITOR.replace("content-new")
+    </script>
+    <script>
+        $(document).ready(function () {
+            const addingResult = '@TempData["NewsAddedResult"]'.toLowerCase() // Possible values: 'success', 'failure', ''
+            if (addingResult === "success") {
+                swal({
+                    icon: "success",
+                    title: "Success",
+                    text: "Thêm bài viết thành công"
+                });
+            } else if (addingResult === "failure") {
+                swal({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Thêm bài viết không thành công",
+                    button: {
+                        className: "swal-button--cancel"
+                    }
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,126 @@
+﻿@using Data.Entity;
+@model App.Areas.Admin.Models.AddProductModel
+@{
+    ViewBag.Title = "Thêm mới sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+
+    var typeProducts = ViewBag.TypeProducts as List<TypeProduct>;
+    var statusProducts = ViewBag.StatusProducts as List<StatusProduct>;
+    var suppliers = ViewBag.Suppliers as List<Supplier>;
+}
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item"><a href="/Admin/ProductsManager"><b>Quản lý sản phẩm</b></a></li>
+            <li class="breadcrumb-item active"><a href=""><b>Tạo mới sản phẩm</b></a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <h4 class="tile-title">Tạo mới sản phẩm</h4>
+                <div class="tile-body">
+                    @using (Html.BeginForm("AddProduct", "ProductsManager", FormMethod.Post, new { id = "add-product-form", enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <label class="control-label">Tên sản phẩm</label>
+                            @Html.TextBoxFor(model => model.NameProduct, new { @class = "form-control", @type = "text" })
+                            @Html.ValidationMessageFor(model => model.NameProduct, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Số lượng</label>
+                            @Html.TextBoxFor(model => model.Quantity, new { @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Giá niêm yết</label>
+                            @Html.TextBoxFor(model => model.ListedPrice, new { @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(model => model.ListedPrice, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Giá bán thực tế</label>
+                            @Html.TextBoxFor(model => model.CurrentPrice, new { @class = "form-control", @type = "number" })
+                            @Html.ValidationMessageFor(model => model.CurrentPrice, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Loại sản phẩm</label>
+                            @Html.DropDownListFor(model => model.TypeId, new SelectList(typeProducts, "Id", "Name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.TypeId, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Tình trạng</label>
+                            @Html.DropDownListFor(model => model.StatusId, new SelectList(statusProducts, "Id", "Name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.StatusId, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nhà cung cấp</label>
+                            @Html.DropDownListFor(model => model.SupplierId, new SelectList(suppliers, "Id", "Name"), new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.SupplierId, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Mô tả sản phẩm</label>
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Ảnh sản phẩm</label>
+                            <div id="upload-images-container" class="d-flex align-items-center">
+                                <div id="preview-images-container" class="d-flex align-items-center">
+                                </div>
+                                <label class="button-upload-image">
+                                    <div class="button-upload-image-icon"><i class="fa fa-plus"></i></div>
+                                    <input type="file" accept="image/*" hidden>
+                                </label>
+                            </div>
+                            @Html.HiddenFor(model => model.IsImagesAdded)
+                            @Html.ValidationMessageFor(model => model.IsImagesAdded, "", new { @class = "text-danger validator" })
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-save mr-2" onclick="submitForm()">Lưu lại</button>
+                            <a class="btn btn-cancel" href="/Admin/ProductsManager">Hủy bỏ</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section script {
+    <script>
+        $(document).ready(function () {
+            // Show dialog based on upload result
+            const result = '@TempData["IsAddProductSuccess"]'.toLowerCase() // Possible values: 'true', 'false', ''
+            if (result === 'true') {
+                swal({
+                    icon: "success",
+                    title: "Success",
+                    text: "Thêm sản phẩm thành công",
+                });
+            } else if (result === 'false') {
+                swal({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Thêm sản phẩm không thành công",
+                    button: {
+                        className: "swal-button--cancel"
+                    }
+                });
+            }
+        });
+
+        function submitForm() {
+            // Check if the user has uploaded some images
+            // Get the number of input elements that have the attribute name='images'
+            // If the user has uploaded some images, then the length is > 0
+            if ($('label.button-upload-image input[name="images"]').length) {
+                $('#IsImagesAdded').val(true);
+            }
+
+            $('#add-product-form').submit();
+        }
+    </script>
+}

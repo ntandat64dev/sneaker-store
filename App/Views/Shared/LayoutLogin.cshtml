@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("/Content/Css/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/magnific-popup.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/font-awesome.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/jquery.fancybox.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/themify-icons.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/niceselect.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/animate.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/flex-slider.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/owl-carousel.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/slicknav.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/style.css")" rel="stylesheet" />
+    <link href="@Url.Content("/Content/css/responsive.css")" rel="stylesheet" />
+</head>
+<body>
+    <header class="header-account">
+        <div class="container">
+            <div class="row py-3">
+                <div class="col-lg-7 col-md-7 col-12">
+                    <div class="title-left d-flex justify-content-start h-100 align-items-center">
+                        <a class="w-25 mr-4" href="/">
+                            <img src="@Url.Content("/Content/Images/logo.png")" />
+                        </a>
+                        <span class="d-inline-block">Đăng Nhập</span>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-5 col-12">
+                    <div class="title-right d-flex h-100 justify-content-end align-items-center">
+                        <a href="/Admin/Login" style="color:rgb(13, 58, 236);">Đăng nhập với tài khoản admin</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <section class="shop-services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-service">
+                        <i class="ti-rocket"></i>
+                        <h4>Cam kết chính hãng</h4>
+                        <p>Chính hãng 100%</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-service">
+                        <i class="ti-reload"></i>
+                        <h4>Hỗ trợ hoàn trả</h4>
+                        <p>Tất cả các mặt hàng</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-service">
+                        <i class="ti-lock"></i>
+                        <h4>Hỗ trợ kỹ thuật 24/7</h4>
+                        <p>Trực tiếp hoặc trực tuyến</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="single-service">
+                        <i class="ti-tag"></i>
+                        <h4>Giá thành cạnh tranh</h4>
+                        <p>Giá cả hợp lý</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <!-- Footer Top -->
+        <div class="footer-top pt-5 pb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-6 col-12">
+                        <div class="single-footer about pr-5">
+                            <div class="logo mb-4">
+                                <a href="/">
+                                    <img src="@Url.Content("/Content/Images/logo-white.png")" />
+                                </a>
+                            </div>
+                            <p class="text">
+                                Sneaker Store là trang web mua sắm trực tuyến với sản phẩm chính là
+                                giày Sneaker từ các thương hiệu nổi tiếng thế giới. Chúng tôi cam kết đem đến những
+                                sản phẩm chất lượng với mức giá TỐT NHẤT.
+                            </p>
+                            <p class="call">
+                                Có bất kỳ câu hỏi nào vui lòng liên hệ:<span class="d-block"><a href="tel:123456789">0983 803 100</a></span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-12">
+                        <div class="single-footer links">
+                            <h4>Thông tin</h4>
+                            <ul>
+                                <li class="d-block mb-2"><a href="#0">Về chúng tôi</a></li>
+                                <li class="d-block mb-2">
+                                    <a href="#0">Câu hỏi thường gặp</a>
+                                </li>
+                                <li class="d-block mb-2">
+                                    <a href="#0">Điều khoản dịch vụ</a>
+                                </li>
+                                <li class="d-block mb-2"><a href="#0">Liên hệ</a></li>
+                                <li class="d-block"><a href="#0">Giúp đỡ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-6 col-12">
+                        <div class="single-footer links">
+                            <h4>Khách hàng</h4>
+                            <ul>
+                                <li class="d-block mb-2"><a href="#0">Thanh toán</a></li>
+                                <li class="d-block mb-2"><a href="#0">Hoàn tiền</a></li>
+                                <li class="d-block mb-2"><a href="#0">Lợi nhuận</a></li>
+                                <li class="d-block mb-2"><a href="#0">Vận chuyển</a></li>
+                                <li class="d-block"><a href="#0">Chính sách bảo mật</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-12">
+                        <div class="single-footer social">
+                            <h4>Liên lạc</h4>
+                            <div class="contact">
+                                <ul>
+                                    <li class="mb-2">
+                                        123, phương Linh Trung, Tp. Thủ Đức, Tp. Hồ Chí Minh
+                                    </li>
+                                    <li class="mb-2">
+                                        35 Đinh Tiên Hoàng, phường 5, quận 5, Tp. Hồ Chí Minh
+                                    </li>
+                                    <li class="mb-2">info@sneakerstore.com</li>
+                                    <li>0983 803 100</li>
+                                </ul>
+                            </div>
+                            <ul class="icon mt-3">
+                                <li class="d-inline-block mr-4">
+                                    <a href="#"><i class="ti-facebook"></i></a>
+                                </li>
+                                <li class="d-inline-block mr-4">
+                                    <a href="#"><i class="ti-twitter"></i></a>
+                                </li>
+                                <li class="d-inline-block mr-4">
+                                    <a href="#"><i class="ti-youtube"></i></a>
+                                </li>
+                                <li class="d-inline-block">
+                                    <a href="#"><i class="ti-instagram"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="copyright">
+            <div class="container">
+                <div class="inner">
+                    <div class="row">
+                        <div class="col-lg-6 col-12">
+                            <div class="left">
+                                <p class="text-white">
+                                    © 2024 - Bản quyền thuộc về Sneaker Store − Đã đăng ký bản quyền.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
+                            <div class="float-right">
+                                <img src="@Url.Content("/Content/Images/payments.png")" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="@Url.Content("/Content/js/jquery.min.js")"></script>
+    <script src="@Url.Content("/Content/js/jquery-migrate-3.0.0.js")"></script>
+    <script src="@Url.Content("/Content/js/jquery-ui.min.js")"></script>
+    <script src="@Url.Content("/Content/js/popper.min.js")"></script>
+    <script src="@Url.Content("/Content/js/bootstrap.min.js")"></script>
+    <script src="@Url.Content("/Content/js/slicknav.min.js")"></script>
+    <script src="@Url.Content("/Content/js/owl-carousel.js")"></script>
+    <script src="@Url.Content("/Content/js/magnific-popup.js")"></script>
+    <script src="@Url.Content("/Content/js/waypoints.min.js")"></script>
+    <script src="@Url.Content("/Content/js/finalcountdown.min.js")"></script>
+    <script src="@Url.Content("/Content/js/nicesellect.js")"></script>
+    <script src="@Url.Content("/Content/js/flex-slider.js")"></script>
+    <script src="@Url.Content("/Content/js/scrollup.js")"></script>
+    <script src="@Url.Content("/Content/js/onepage-nav.min.js")"></script>
+    <script src="@Url.Content("/Content/js/easing.js")"></script>
+    <script src="@Url.Content("/Content/js/active.js")"></script>
+</body>
+</html>

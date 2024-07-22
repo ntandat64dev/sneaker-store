@@ -1,0 +1,279 @@
+﻿@using Data.Entity;
+@{
+    ViewBag.Title = "Thanh Toán - Sneaker Store";
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+    var customer = Session["auth_customer"] as Customer;
+}
+
+<div class="breadcrumbs py-4">
+    <div class="container text-left">
+        <ul class="bread-list d-inline-block">
+            <li class="d-inline-block text-capitalize"><a href="/">Trang chủ<i class="ti-arrow-right mx-2"></i></a></li>
+            <li class="d-inline-block text-capitalize"><a href="@Url.Action("Index", "Cart")">Giỏ hàng<i class="ti-arrow-right mx-2"></i></a></li>
+            <li class="d-inline-block text-capitalize"><a href="">Thanh toán</a></li>
+        </ul>
+    </div>
+</div>
+
+<section class="checkout">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="checkout-form mt-4">
+                    <div class="checkout-title">
+                        <h3>Thông tin giao hàng</h3>
+                        <p class="my-2">
+                            Yêu cầu quý khách cần điền đầy đủ thông tin để việc giao hàng
+                            được thuận lợi
+                        </p>
+                    </div>
+                    <form class="form" method="post" action="mail/mail.php">
+                        <div class="row">
+                            <div class="col-lg-12 col-12">
+                                <div class="form-group mb-4">
+                                    <label>Họ và tên</label>
+                                    <input name="name" type="text" placeholder="" value="@customer.Fullname">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group mb-4">
+                                    <label>Số điện thoại<span>*</span></label>
+                                    <input name="subject" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12">
+                                <div class="form-group mb-4">
+                                    <label>Email<span>*</span></label>
+                                    <input name="email" type="email" placeholder="" value="@customer.Username">
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-12">
+                                <div class="form-group">
+                                    <label>Địa chỉ<span>*</span></label>
+                                    <input name="company_name" type="text" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-12">
+                                <div class="form-group">
+                                    <label>Tỉnh / Thành phố<span>*</span></label>
+                                    <select name="company_name" id="company" style="display: none;">
+                                        <option value="An Giang">An Giang
+                                        <option value="Bà Rịa - Vũng Tàu">Bà Rịa - Vũng Tàu
+                                        <option value="Bắc Giang">Bắc Giang
+                                        <option value="Bắc Kạn">Bắc Kạn
+                                        <option value="Bạc Liêu">Bạc Liêu
+                                        <option value="Bắc Ninh">Bắc Ninh
+                                        <option value="Bến Tre">Bến Tre
+                                        <option value="Bình Định">Bình Định
+                                        <option value="Bình Dương">Bình Dương
+                                        <option value="Bình Phước">Bình Phước
+                                        <option value="Bình Thuận">Bình Thuận
+                                        <option value="Bình Thuận">Bình Thuận
+                                        <option value="Cà Mau">Cà Mau
+                                        <option value="Cao Bằng">Cao Bằng
+                                        <option value="Đắk Lắk">Đắk Lắk
+                                        <option value="Đắk Nông">Đắk Nông
+                                        <option value="Điện Biên">Điện Biên
+                                        <option value="Đồng Nai">Đồng Nai
+                                        <option value="Đồng Tháp">Đồng Tháp
+                                        <option value="Đồng Tháp">Đồng Tháp
+                                        <option value="Gia Lai">Gia Lai
+                                        <option value="Hà Giang">Hà Giang
+                                        <option value="Hà Nam">Hà Nam
+                                        <option value="Hà Tĩnh">Hà Tĩnh
+                                        <option value="Hải Dương">Hải Dương
+                                        <option value="Hậu Giang">Hậu Giang
+                                        <option value="company" selected="selected">
+                                            TP.Hồ Chí Minh
+                                        </option>
+                                        <option value="Hòa Bình">Hòa Bình
+                                        <option value="Hưng Yên">Hưng Yên
+                                        <option value="Khánh Hòa">Khánh Hòa
+                                        <option value="Kiên Giang">Kiên Giang
+                                        <option value="Kon Tum">Kon Tum
+                                        <option value="Lai Châu">Lai Châu
+                                        <option value="Lâm Đồng">Lâm Đồng
+                                        <option value="Lạng Sơn">Lạng Sơn
+                                        <option value="Lào Cai">Lào Cai
+                                        <option value="Long An">Long An
+                                        <option value="Nam Định">Nam Định
+                                        <option value="Nghệ An">Nghệ An
+                                        <option value="Ninh Bình">Ninh Bình
+                                        <option value="Ninh Thuận">Ninh Thuận
+                                        <option value="Phú Thọ">Phú Thọ
+                                        <option value="Quảng Bình">Quảng Bình
+                                        <option value="Quảng Bình">Quảng Bình
+                                        <option value="Quảng Ngãi">Quảng Ngãi
+                                        <option value="Quảng Ninh">Quảng Ninh
+                                        <option value="Quảng Trị">Quảng Trị
+                                        <option value="Sóc Trăng">Sóc Trăng
+                                        <option value="Sơn La">Sơn La
+                                        <option value="Tây Ninh">Tây Ninh
+                                        <option value="Thái Bình">Thái Bình
+                                        <option value="Thái Nguyên">Thái Nguyên
+                                        <option value="Thanh Hóa">Thanh Hóa
+                                        <option value="Thừa Thiên Huế">Thừa Thiên Huế
+                                        <option value="Tiền Giang">Tiền Giang
+                                        <option value="Trà Vinh">Trà Vinh
+                                        <option value="Tuyên Quang">Tuyên Quang
+                                        <option value="Vĩnh Long">Vĩnh Long
+                                        <option value="Vĩnh Phúc">Vĩnh Phúc
+                                        <option value="Yên Bái">Yên Bái
+                                        <option value="Phú Yên">Phú Yên
+                                        <option value="Tp.Cần Thơ">Tp.Cần Thơ
+                                        <option value="Tp.Đà Nẵng">Tp.Đà Nẵng
+                                        <option value="Tp.Hải Phòng">Tp.Hải Phòng
+                                        <option value="Tp.Hà Nội">Tp.Hà Nội
+                                    </select>
+                                    <div class="nice-select" tabindex="0">
+                                        <span class="current">
+                                            TP.Hồ Chí Minh
+                                        </span>
+                                        <ul class="list">
+                                            <li data-value="An Giang" class="option">An Giang</li>
+                                            <li data-value="Bà Rịa-Vũng Tàu" class="option">Bà Rịa-Vũng Tàu</li>
+                                            <li data-value="Bạc Liêu" class="option">Bạc Liêu</li>
+                                            <li data-value="Bắc Kạn" class="option">Bắc Kạn</li>
+                                            <li data-value="Bắc Giang" class="option">Bắc Giang</li>
+                                            <li data-value="Bắc Ninh" class="option">Bắc Ninh</li>
+                                            <li data-value="Bến Tre" class="option">Bến Tre</li>
+                                            <li data-value="Bình Dương" class="option">Bình Dương</li>
+                                            <li data-value="Bình Định" class="option">Bình Định</li>
+                                            <li data-value="Bình Phước" class="option">Bình Phước</li>
+                                            <li data-value="Bình Thuận" class="option">Bình Thuận</li>
+                                            <li data-value="Cà Mau" class="option">Cà Mau</li>
+                                            <li data-value="Cao Bằng" class="option">Cao Bằng</li>
+                                            <li data-value="TP Cần Thơ" class="option">TP Cần Thơ</li>
+                                            <li data-value="TP Đà Nẵng" class="option">TP Đà Nẵng</li>
+                                            <li data-value="Đắk Lắk" class="option">Đắk Lắk</li>
+                                            <li data-value="Đắk Nông" class="option">Đắk Nông</li>
+                                            <li data-value="Điện Biên" class="option">Điện Biên</li>
+                                            <li data-value="Đồng Nai" class="option">Đồng Nai</li>
+                                            <li data-value="Đồng Tháp" class="option">Đồng Tháp</li>
+                                            <li data-value="Gia Lai" class="option">Gia Lai</li>
+                                            <li data-value="Hà Giang" class="option">Hà Giang</li>
+                                            <li data-value="Hà Nam" class="option">Hà Nam</li>
+                                            <li data-value="TP Hà Nội" class="option">TP Hà Nội</li>
+                                            <li data-value="Hà Tĩnh" class="option">Hà Tĩnh</li>
+                                            <li data-value="Hải Dương" class="option">Hải Dương</li>
+                                            <li data-value="TP Hải Phòng" class="option">TP Hải Phòng</li>
+                                            <li data-value="Hòa Bình" class="option">Hòa Bình</li>
+                                            <li data-value="company" class="option selected">
+                                                TP.Hồ Chí Minh
+                                            </li>
+                                            <li data-value="Hậu Giang" class="option">Hậu Giang</li>
+                                            <li data-value="Hưng Yên" class="option">Hưng Yên</li>
+                                            <li data-value="Khánh Hòa" class="option">Khánh Hòa</li>
+                                            <li data-value="Kiên Giang" class="option">Kiên Giang</li>
+                                            <li data-value="Kon Tum" class="option">Kon Tum</li>
+                                            <li data-value="Lai Châu" class="option">Lai Châu</li>
+                                            <li data-value="Lào Cai" class="option">Lào Cai</li>
+                                            <li data-value="Lạng Sơn" class="option">Lạng Sơn</li>
+                                            <li data-value="Lâm Đồng" class="option">Lâm Đồng</li>
+                                            <li data-value="Long An" class="option">Long An</li>
+                                            <li data-value="Nam Định" class="option">Nam Định</li>
+                                            <li data-value="Nghệ An" class="option">Nghệ An</li>
+                                            <li data-value="Ninh Bình" class="option">Ninh Bình</li>
+                                            <li data-value="Ninh Thuận" class="option">Ninh Thuận</li>
+                                            <li data-value="Phú Thọ" class="option">Phú Thọ</li>
+                                            <li data-value="Phú Yên" class="option">Phú Yên</li>
+                                            <li data-value="Quảng Bình" class="option">Quảng Bình</li>
+                                            <li data-value="Quảng Nam" class="option">Quảng Nam</li>
+                                            <li data-value="Quảng Ngãi" class="option">Quảng Ngãi</li>
+                                            <li data-value="Quảng Ninh" class="option">Quảng Ninh</li>
+                                            <li data-value="Quảng Trị" class="option">Quảng Trị</li>
+                                            <li data-value="Sóc Trăng" class="option">Sóc Trăng</li>
+                                            <li data-value="Sơn La" class="option">Sơn La</li>
+                                            <li data-value="Tây Ninh" class="option">Tây Ninh</li>
+                                            <li data-value="Thái Bình" class="option">Thái Bình</li>
+                                            <li data-value="Thái Nguyên" class="option">Thái Nguyên</li>
+                                            <li data-value="Thanh Hóa" class="option">Thanh Hóa</li>
+                                            <li data-value="Thừa Thiên Huế" class="option">Thừa Thiên Huế</li>
+                                            <li data-value="Trà Vinh" class="option">Trà Vinh</li>
+                                            <li data-value="Tuyên Quang" class="option">Tuyên Quang</li>
+                                            <li data-value="Vĩnh Long" class="option">Vĩnh Long</li>
+                                            <li data-value="Vĩnh Phúc " class="option">Vĩnh Phúc </li>
+                                            <li data-value="Yên Bái" class="option">Yên Bái</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="order-details">
+                    <!-- Order Widget -->
+                    <div class="single-widget mb-4">
+                        <h2>TỔNG CỘNG</h2>
+                        <div class="content mt-3">
+                            <ul>
+                                <li>Hóa đơn<span>@string.Format("{0:0,0đ}", (int) Session["TotalPayment"])</span></li>
+                                <li>(+) Vận chuyển<span>@string.Format("{0:0,0đ}", 30000)</span></li>
+                                <li>Tổng<span class="total">@string.Format("{0:0,0 VNĐ}", (int) Session["TotalPayment"] + 30000)</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Order Widget -->
+                    <div class="single-widget mb-5">
+                        <h2>PHƯƠNG THỨC THANH TOÁN</h2>
+                        <div class="content mt-3">
+                            <div class="radio">
+                                <input type="radio" id="2" checked="">
+                                <label class="checkbox-inline" for="2">Thanh toán trực tiếp</label>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Button Widget -->
+                    <div class="single-widget get-button">
+                        <div class="content">
+                            <div class="button">
+                                <button class="btn" id="btn-checkout">Thanh toán</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section script {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $('#btn-checkout').click(function () {
+            fetch('http://localhost:51665/Checkout/Checkout', {
+                method: 'POST'
+            }).then(res => {
+                const customSwal = Swal.mixin({
+                    customClass: {
+                        confirmButton: "btn btn-success",
+                    },
+                    buttonsStyling: true
+                });
+                if (res.status == 200) {
+                    customSwal.fire({
+                        title: "Success",
+                        text: "Đặt hàng thành công",
+                        icon: "success",
+                        showCancelButton: true,
+                        confirmButtonText: "Tiếp tục mua hàng",
+                        cancelButtonText: "Quay về trang chủ",
+                    }).then(result => {
+                        location.href = 'http://localhost:51665'
+                    })
+                } else {
+                    customSwal.fire({
+                        title: "Error",
+                        text: "Đặt hàng không thành công",
+                        icon: "error",
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+                }
+            })
+        });
+    </script>
+}

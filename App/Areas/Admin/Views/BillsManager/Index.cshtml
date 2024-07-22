@@ -1,0 +1,220 @@
+﻿@{
+    ViewBag.Title = "Quản lý đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutPage.cshtml";
+
+    var orders = ViewBag.Orders as List<Data.Entity.Order>;
+}
+
+<main class="app-content">
+    <div class="app-title">
+        <ul class="app-breadcrumb breadcrumb side">
+            <li class="breadcrumb-item active"><a href=""><b>Quản lý đơn hàng</b></a></li>
+        </ul>
+        <div id="clock"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="tile">
+                <div class="tile-body">
+                    <div class="row element-button">
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm print-file" type="button" title="In" onclick="myApp.printTable()"><i class="fas fa-print"></i> In dữ liệu</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-excel btn-sm" href="" title="In"><i class="fas fa-file-excel"></i> Xuất Excel</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm pdf-file" type="button" title="In" onclick="myFunction(this)"><i class="fas fa-file-pdf"></i> Xuất PDF</a>
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i class="fas fa-trash-alt"></i> Xóa tất cả </a>
+                        </div>
+                    </div>
+                    <!-- Search -->
+                    <div class="search-bar d-flex justify-content-between my-3">
+                        <div class="d-flex align-items-center">
+                            <span class="status">Hiện <span class="quantity">10</span> danh mục</span>
+                        </div>
+                        <div class="search-wrap">
+                            <label class="font-weight-bold m-0" for="search">Tìm kiếm: </label>
+                            <input type="text" placeholder="" id="search">
+                            <label for="by" class="font-weight-bold m-0 ml-3">Theo: </label>
+                            <select id="by">
+                                <option>ID</option>
+                                <option>Tên</option>
+                            </select>
+                        </div>
+                    </div>
+                    <table class="table table-hover table-bordered" id="sampleTable">
+                        <thead>
+                            <tr>
+                                <th width="10"><input type="checkbox" id="all"></th>
+                                <th>ID đơn hàng</th>
+                                <th>Khách hàng</th>
+                                <th>Đơn hàng</th>
+                                <th>Số lượng</th>
+                                <th>Tổng tiền</th>
+                                <th>Tình trạng</th>
+                                <th>Tính năng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (orders != null)
+                            {
+                                foreach (var order in orders)
+                                {
+                                    var badge = "bg-success";
+                                    var status = "Hoàn thành";
+                                    switch (order.StatusId)
+                                    {
+                                        case 1:
+                                            badge = "bg-info";
+                                            status = "Đang xử lý";
+                                            break;
+                                        case 2:
+                                            badge = "bg-warning";
+                                            status = "Đang vận chuyển";
+                                            break;
+                                        case 3:
+                                            badge = "bg-success";
+                                            status = "Đã giao";
+                                            break;
+                                        default:
+                                            badge = "bg-danger";
+                                            status = "Đã hủy";
+                                            break;
+                                    }
+                                    <tr modal-hint="id=@order.Id,st=@order.StatusId">
+                                        <td width="10"><input type="checkbox" name="check1" value="1"></td>
+                                        <td>@order.Id</td>
+                                        <td>@order.Fullname</td>
+                                        <td>@order.GetOrderName()</td>
+                                        <td>@order.GetQuantity()</td>
+                                        <td>@string.Format("{0:0,0}đ", order.TotalPrice)</td>
+                                        <td><span class="badge @badge">@status</span></td>
+                                        <td>
+                                            <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"><i class="fas fa-trash-alt"></i></button>
+                                            <button class="btn btn-primary btn-sm edit" type="button" title="Sửa"><i class="fa fa-edit"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center">
+        <b>
+            Copyright
+            <script>document.write(new Date().getFullYear())</script> - Bản quyền thuộc về Sneaker Store
+        </b>
+    </div>
+</main>
+
+<div class="modal fade" id="order-update-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <span class="thong-tin-thanh-toan">
+                            <h5>Cập nhật trạng thái đơn hàng</h5>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group col-md-8">
+                    <label for="st" class="control-label">Trạng thái đơn hàng</label>
+                    <select class="form-control" id="st">
+                        <option value="1">Đang xử lý</option>
+                        <option value="2">Đang vận chuyển</option>
+                        <option value="3">Đã giao</option>
+                        <option value="4">Đã hủy</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-end mt-1">
+                    <button class="btn btn-save mr-3" type="button">Lưu lại</button>
+                    <button class="btn btn-cancel" data-dismiss="modal">Hủy bỏ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    <script>
+        $('.btn.edit').click(function () {
+            const id = $(this).closest('tr').attr('modal-hint').split(',')[0].split('=')[1];
+            const statusId = $(this).closest('tr').attr('modal-hint').split(',')[1].split('=')[1];
+            $('#st').val(statusId);
+            $('#order-update-modal').attr('orderId', id);
+            $('#order-update-modal').modal('show');
+        })
+
+        $('.btn.btn-save').click(function () {
+            const orderId = $('#order-update-modal').attr('orderId');
+            const statusId = $('#st').val();
+            fetch(`http://localhost:51665/Admin/BillsManager/UpdateOrderStatus/${orderId}?statusId=${statusId}`, {
+                method: 'POST'
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        swal({
+                            icon: 'success',
+                            title: 'Success',
+                            text: 'Cập nhật đơn hàng thành công',
+                            timer: 1500,
+                            buttons: false
+                        }).then(() => location.reload())
+                    } else {
+                        swal({
+                            icon: 'error',
+                            text: 'Cập nhật đơn hàng không thành công',
+                            timer: 2000,
+                            buttons: false
+                        });
+                    }
+                });
+            $('#order-update-modal').modal('hide');
+        });
+
+        $('.btn.trash').click(function () {
+            swal({
+                icon: 'warning',
+                title: 'Cảnh báo',
+                text: 'Bạn có chắc chắn là muốn xóa đơn hàng này?',
+                buttons: ['Hủy bỏ', 'Đồng ý'],
+            })
+                .then((agree) => {
+                    if (agree) {
+                        const orderId = $(this).closest('tr').attr('modal-hint').split(',')[0].split('=')[1];
+
+                        fetch(`http://localhost:51665/Admin/BillsManager/DeleteOrder/${orderId}`, {
+                            method: 'POST'
+                        }).then(res => {
+                            if (res.status === 200) {
+                                $(this).closest('tr').remove();
+                                swal({
+                                    icon: 'success',
+                                    title: 'Success',
+                                    text: 'Đã xóa thành công',
+                                    timer: 1500,
+                                    buttons: false
+                                });
+                            } else {
+                                swal({
+                                    icon: 'error',
+                                    text: 'Xóa sản phẩm không thành công',
+                                    timer: 2000,
+                                    buttons: false
+                                });
+                            }
+                        })
+                    }
+                });
+        });
+    </script>    
+}
